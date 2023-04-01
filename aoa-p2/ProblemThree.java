@@ -105,6 +105,74 @@ public class ProblemThree {
 
     public static void task7b(int[][] matrix, int h, int k)
     {
+        int[][] rowDP = new int[matrix.length][matrix[0].length];
+        int[][] colDP = new int[matrix.length][matrix[0].length];
+        int[][][] squareDP = new int[matrix.length][matrix[0].length][k + 1];
+
+        for(int i = 0; i < matrix.length; i++)
+        {
+            for(int j = 0; j < matrix[i].length; j++)
+            {
+                
+                if(i == 0)
+                {
+                    colDP[i][j] = matrix[i][j] < h ? 1 : 0;
+                }
+                else
+                {
+                    colDP[i][j] = colDP[i - 1][j] + (matrix[i][j] < h ? 1 : 0);
+                }
+            }
+        }
+
+        for(int i = 0; i < matrix.length; i++)
+        {
+            for(int j = 0; j < matrix[i].length; j++)
+            {
+                
+                if(j == 0)
+                {
+                    rowDP[i][j] = matrix[i][j] < h ? 1 : 0;
+                }
+                else
+                {
+                    rowDP[i][j] = rowDP[i - 1][j] + (matrix[i][j] < h ? 1 : 0);
+                }
+            }
+        }
+
+        int initLength = (int)Math.floor(Math.sqrt(k));
+
+        int maxSide = (int)Math.floor(Math.sqrt(k));
+        // int maxI = initLength;
+        // int maxJ = initLength;
+
+        for(int i = 0; i < matrix.length; i++)
+        {
+            for(int j = 0; j < matrix[i].length; j++)
+            {
+                Arrays.fill(squareDP[i][j], -1);
+                if(i == 0 || j == 0)
+                {
+                    if(matrix[i][j] < h && k > 0)
+                    {
+                        squareDP[i][j][1] = 1;
+                    }
+                    else
+                    {
+                        squareDP[i][j][0] = 1;
+                    }
+                }
+                else
+                {
+                    for(int x = 0; i <= k; i++)
+                    {
+
+                    }
+                }
+            }
+        }
+
 
     }
 }
