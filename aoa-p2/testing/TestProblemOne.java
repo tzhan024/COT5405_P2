@@ -1,60 +1,66 @@
 import java.util.*;
+import java.io.*;
+import java.lang.*;
 
-public class ProblemOne {
+public class TestProblemOne {
     public static void main(String[] args)
     {
-        Scanner in = new Scanner(System.in);
+        String[] files = new String[] {"p1+given_case1.txt", "p1+given_case2.txt", "p1p2+100+100.txt", "p1p2+200+200.txt", "p1p2+300+300.txt", "p1p2+400+400.txt", "p1p2+500+500.txt"};
 
-        // get input for n and m.
-        System.out.println("Please enter m, n and h separated by a single space: ");
-        String s = in.nextLine();
-        String[] arr = s.split(" ");
-        int m = Integer.valueOf(arr[0]);
-        int n = Integer.valueOf(arr[1]);
-        int h = Integer.valueOf(arr[2]);
+        for(String f : files)
+        {
+            System.out.println(f + ": ");
+            task1(f);
+            task2(f);
+            task3(f);
+
+            System.out.println();
+        }
+
         
-        int[][] matrix = new int[m][n];
-
-        for(int i = 0; i < m; i++)
-        {
-            // get input for each house.
-            System.out.println("Please enter the  " + i + "th line separated by a single space: ");
-            String[] line = in.nextLine().split(" ");
-            if(line.length != n)
-            {
-                System.out.println("INVALID LINE!");
-                return;
-            }
-            for(int j = 0; j < n; j++)
-            {
-                matrix[i][j] = Integer.valueOf(line[j]);
-            }
-        }
-
-        in.close();
-
-        // run corresponding strategy with different command.
-        if(args[0].equals("1"))
-        {
-            task1(matrix, h);
-        }
-        else if(args[0].equals("2"))
-        {
-            task2(matrix, h);
-        }
-        else if(args[0].equals("3"))
-        {
-            task3(matrix, h);
-        }
     }
 
-    public static void task1(int[][] matrix, int h)
+    public static void task1(String fileName)
     {
+        int[][] matrix = new int[0][0];
+        int h = 0;
+        try
+        {
+            File inFile = new File(fileName);
+            Scanner fileReader = new Scanner(inFile);
+
+            String[] arr = fileReader.nextLine().split(" ");
+            int m = Integer.valueOf(arr[0]);
+            int n = Integer.valueOf(arr[1]);
+
+            matrix = new int[m][n];
+            h = Integer.valueOf(arr[2]);
+
+            for(int i = 0; i < m; i++)
+            {
+                String[] row = fileReader.nextLine().split(" ");
+                for(int j = 0; j < n; j++)
+                {
+                    matrix[i][j] = Integer.valueOf(row[j]);
+                }
+            }
+
+            fileReader.close();
+            // in.close();
+
+        } 
+        catch(Exception e){
+            e.printStackTrace();
+        } 
+
+        long startTime = System.nanoTime();
+
         int maxI = 0;
         int maxJ = 0;
         int maxX = 0;
         int maxY = 0;
         int maxSide = 0;
+
         for(int i = 0; i < matrix.length; i++)
         {
             for(int j = 0; j < matrix[i].length; j++)
@@ -81,8 +87,8 @@ public class ProblemOne {
             }
         }
 
-        System.out.println("The answer indexes are: ");
-        System.out.println(maxX + " " + maxY + " " + maxI + " " + maxJ);
+        long endTime = System.nanoTime();
+        System.out.println("task1: " + maxX + " " + maxY + " " + maxI + " " + maxJ + " | runtime: " + (endTime - startTime));
     }
     public static boolean isValid1(int[][] matrix, int startI, int startJ, int endI, int endJ, int h)
     {
@@ -100,8 +106,42 @@ public class ProblemOne {
     }
     
 
-    public static void task2(int[][] matrix, int h)
+    public static void task2(String fileName)
     {
+        int[][] matrix = new int[0][0];
+        int h = 0;
+        try
+        {
+            File inFile = new File(fileName);
+            Scanner fileReader = new Scanner(inFile);
+
+            String[] arr = fileReader.nextLine().split(" ");
+            int m = Integer.valueOf(arr[0]);
+            int n = Integer.valueOf(arr[1]);
+
+            matrix = new int[m][n];
+            h = Integer.valueOf(arr[2]);
+
+            for(int i = 0; i < m; i++)
+            {
+                String[] row = fileReader.nextLine().split(" ");
+                for(int j = 0; j < n; j++)
+                {
+                    matrix[i][j] = Integer.valueOf(row[j]);
+                }
+            }
+
+            fileReader.close();
+            // in.close();
+
+        } 
+        catch(Exception e){
+            e.printStackTrace();
+            return;
+        } 
+
+
+
         int[][] rowDP = new int[matrix.length][matrix[0].length];
         int[][] colDP = new int[matrix.length][matrix[0].length];
         int[][] squareDP = new int[matrix.length][matrix[0].length];
@@ -153,6 +193,8 @@ public class ProblemOne {
             }
         }
 
+        long startTime = System.nanoTime();
+
         int maxI = 0;
         int maxJ = 0;
         int maxX = 0;
@@ -185,8 +227,8 @@ public class ProblemOne {
             }
         }
 
-        System.out.println("The answer indexes are: ");
-        System.out.println(maxX + " " + maxY + " " + maxI + " " + maxJ);
+        long endTime = System.nanoTime();
+        System.out.println("task2: " + maxX + " " + maxY + " " + maxI + " " + maxJ + " | runtime: " + (endTime - startTime));
     }
     public static boolean isValid2(int[][] rowDP, int[][] colDP, int[][] squareDP, int startI, int startJ, int endI, int endJ, int h)
     {
@@ -207,8 +249,42 @@ public class ProblemOne {
         return true;
     }
 
-    public static void task3(int[][] matrix, int h)
+    public static void task3(String fileName)
     {
+        int[][] matrix = new int[0][0];
+        int h = 0;
+        try
+        {
+            File inFile = new File(fileName);
+            Scanner fileReader = new Scanner(inFile);
+
+            String[] arr = fileReader.nextLine().split(" ");
+            int m = Integer.valueOf(arr[0]);
+            int n = Integer.valueOf(arr[1]);
+
+            matrix = new int[m][n];
+            h = Integer.valueOf(arr[2]);
+
+            for(int i = 0; i < m; i++)
+            {
+                String[] row = fileReader.nextLine().split(" ");
+                for(int j = 0; j < n; j++)
+                {
+                    matrix[i][j] = Integer.valueOf(row[j]);
+                }
+            }
+
+            fileReader.close();
+            // in.close();
+
+        } 
+        catch(Exception e){
+            e.printStackTrace();
+        } 
+
+
+        long startTime = System.nanoTime();
+
         int[][] dp = new int[matrix.length][matrix[0].length];
         int maxI = 0;
         int maxJ = 0;
@@ -240,7 +316,7 @@ public class ProblemOne {
             }
         }
 
-        System.out.println("The answer indexes are: ");
-        System.out.println((maxI - maxSide + 1) + " " + (maxJ - maxSide + 1) + " " + maxI + " " + maxJ);
+        long endTime = System.nanoTime();
+        System.out.println("task3: " + (maxI - maxSide + 1) + " " + (maxJ - maxSide + 1) + " " + maxI + " " + maxJ + " | runtime: " + (endTime - startTime));
     }
 }
